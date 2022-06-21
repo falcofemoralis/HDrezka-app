@@ -17,3 +17,4 @@ local.properties
 /app/build
 /app/release
 google-services.json
+keystore_hdrezkaapp.jks
