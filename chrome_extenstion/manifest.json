@@ -1,0 +1,40 @@
+{
+    "name": "HDrezka Time Manager",
+    "description": "Share time between devices!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+        {
+            "matches": [
+                "http://hdrezka.tv/*"
+            ],
+            "js": [
+                "firebase-app.js",
+                "firebase-firestore.js",
+                "jquery.min.js",
+                "firebaseConfig.js",
+                "inject.js"
+            ],
+            "all_frames": true
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "matches": [
+                "http://hdrezka.tv/*"
+            ],
+            "resources": [
+                "web_accessible_resources.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "storage"
+    ],
+    "icons": {
+        "16": "/images/icon_16.png",
+        "32": "/images/icon_32.png",
+        "48": "/images/icon_48.png",
+        "128": "/images/icon_128.png"
+    }
+}

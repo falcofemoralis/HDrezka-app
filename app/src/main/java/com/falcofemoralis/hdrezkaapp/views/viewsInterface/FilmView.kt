@@ -2,7 +2,6 @@ package com.falcofemoralis.hdrezkaapp.views.viewsInterface
 
 import android.widget.ImageView
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
-import com.falcofemoralis.hdrezkaapp.interfaces.IMsg
 import com.falcofemoralis.hdrezkaapp.objects.*
 import com.falcofemoralis.hdrezkaapp.views.elements.CommentEditor
 
@@ -62,4 +61,6 @@ interface FilmView : IConnection, CommentEditor.ICommentEditor {
     fun setTrailer(link: String?)
 
     fun showMsg(msgType: IConnection.ErrorType)
+
+    fun seekTo(time: Double)
 }

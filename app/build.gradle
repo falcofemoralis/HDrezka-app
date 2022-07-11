@@ -13,8 +13,8 @@ android {
         applicationId "com.falcofemoralis.hdrezkaapp"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 36 // 25 for 2.1.1
-        versionName "2.1.4next"
+        versionCode 37
+        versionName "2.1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,11 +76,12 @@ dependencies {
     implementation 'jp.wasabeef:picasso-transformations:2.4.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'io.github.nikartm:image-support:2.0.0'
     implementation 'com.jakewharton:process-phoenix:2.1.2'
     // implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 }

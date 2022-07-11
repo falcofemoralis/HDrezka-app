@@ -1,5 +1,6 @@
 package com.falcofemoralis.hdrezkaapp.presenters
 
+import android.util.Log
 import android.widget.ImageView
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
 import com.falcofemoralis.hdrezkaapp.models.ActorModel
@@ -9,6 +10,8 @@ import com.falcofemoralis.hdrezkaapp.models.FilmModel
 import com.falcofemoralis.hdrezkaapp.objects.*
 import com.falcofemoralis.hdrezkaapp.utils.ExceptionHelper.catchException
 import com.falcofemoralis.hdrezkaapp.views.viewsInterface.FilmView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,11 +20,13 @@ import org.jsoup.HttpStatusException
 
 class FilmPresenter(private val filmView: FilmView, val film: Film) {
     private val COMMENTS_PER_AGE = 18
+    private val DB_COLLECTION = "times"
 
     private val activeComments: ArrayList<Comment> = ArrayList()
     private val loadedComments: ArrayList<Comment> = ArrayList()
     private var commentsPage = 1
     private var isCommentsLoading: Boolean = false
+    private val db = Firebase.firestore
 
     fun initFilmData() {
         GlobalScope.launch {
@@ -69,6 +74,36 @@ class FilmPresenter(private val filmView: FilmView, val film: Film) {
                 }
                 return@launch
             }
+        }
+    }
+
+    private fun getDocumentId(): String {
+        return "${film.filmId}-${film.lastVoiceId}-${film.lastSeason}-${film.lastEpisode}"
+    }
+
+    fun initTime() {
+        db.collection(DB_COLLECTION).document(getDocumentId()).get().addOnSuccessListener { documentReference ->
+            Log.d("FIREBASE_TEST", "DocumentSnapshot with: ${documentReference.data}")
+            if (documentReference.data != null && documentReference.data?.get("deviceId") != SettingsData.deviceId) {
+                GlobalScope.launch {
+                    withContext(Dispatchers.Main) {
+                        val time = documentReference.data?.get("time") as Double
+                        time.let {
+                            filmView.seekTo(it)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun updateTime(time: Double) {
+        if (time > 0) {
+            val data = hashMapOf(
+                "time" to time,
+                "deviceId" to SettingsData.deviceId,
+            )
+            db.collection(DB_COLLECTION).document(getDocumentId()).set(data)
         }
     }
 
