@@ -78,22 +78,29 @@ class FilmPresenter(private val filmView: FilmView, val film: Film) {
     }
 
     private fun getDocumentId(): String {
-        return "${film.filmId}-${film.lastVoiceId}-${film.lastSeason}-${film.lastEpisode}"
+        if (UserData.userId.isNullOrEmpty()) {
+            throw Exception("unauthorized")
+        }
+        return "${UserData.userId}-${film.filmId}-${film.lastVoiceId}-${film.lastSeason}-${film.lastEpisode}"
     }
 
     fun initTime() {
-        db.collection(DB_COLLECTION).document(getDocumentId()).get().addOnSuccessListener { documentReference ->
-            Log.d("FIREBASE_TEST", "DocumentSnapshot with: ${documentReference.data}")
-            if (documentReference.data != null && documentReference.data?.get("deviceId") != SettingsData.deviceId) {
-                GlobalScope.launch {
-                    withContext(Dispatchers.Main) {
-                        val time = documentReference.data?.get("time") as Double
-                        time.let {
-                            filmView.seekTo(it)
+        try {
+            db.collection(DB_COLLECTION).document(getDocumentId()).get().addOnSuccessListener { documentReference ->
+                Log.d("FIREBASE_TEST", "DocumentSnapshot with: ${documentReference.data}")
+                if (documentReference.data != null && documentReference.data?.get("deviceId") != SettingsData.deviceId) {
+                    GlobalScope.launch {
+                        withContext(Dispatchers.Main) {
+                            val time = documentReference.data?.get("time") as Double
+                            time.let {
+                                filmView.seekTo(it)
+                            }
                         }
                     }
                 }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -103,7 +110,12 @@ class FilmPresenter(private val filmView: FilmView, val film: Film) {
                 "time" to time,
                 "deviceId" to SettingsData.deviceId,
             )
-            db.collection(DB_COLLECTION).document(getDocumentId()).set(data)
+
+            try {
+                db.collection(DB_COLLECTION).document(getDocumentId()).set(data)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

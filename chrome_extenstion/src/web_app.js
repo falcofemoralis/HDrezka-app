@@ -23,7 +23,9 @@ const getData = () => {
 
     let titleId = $('.b-userset__fav_holder_data')[0].getAttribute('data-post_id')
 
-    return { voiceId, season, episode, titleId };
+    let userId = $('#member_user_id')[0].getAttribute('value')
+
+    return { voiceId, season, episode, titleId, userId };
 }
 
 window.onload = () => {

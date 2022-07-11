@@ -1,5 +1,8 @@
 const getDocumentId = (data) => {
-    return `${data.titleId}-${data.voiceId}-${data.season}-${data.episode}`
+    if(!data.userId) {
+        throw Error("unauthorized")
+    }
+    return `${data.userId}-${data.titleId}-${data.voiceId}-${data.season}-${data.episode}`
 };
 const getDeviceId = () => {
     let id = localStorage.getItem('DEVICE_ID');
@@ -15,7 +18,7 @@ const getDeviceId = () => {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-handleFromWeb = async (event) => {
+const handleFromWeb = async (event) => {
     if (event.data.action) {
         if (event.data.action == 'get') {
             try {
@@ -38,13 +41,3 @@ handleFromWeb = async (event) => {
     }
 };
 window.addEventListener('message', handleFromWeb);
-
-injectScript = (filePath, tag) => {
-    const node = document.getElementsByTagName(tag)[0];
-    const script = document.createElement('script');
-    script.setAttribute('type', 'text/javascript');
-    script.setAttribute('src', filePath);
-    script.setAttribute('id', 'inject');
-    node.appendChild(script);
-}
-injectScript(chrome.runtime.getURL('web_accessible_resources.js'), 'body');

@@ -18,4 +18,4 @@ local.properties
 /app/release
 google-services.json
 keystore_hdrezkaapp.jks
-/chrome_extenstion/firebaseConfig.js
+/chrome_extenstion/src/libs/firebase/firebase-config.js
