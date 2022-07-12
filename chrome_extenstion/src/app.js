@@ -1,5 +1,5 @@
 const getDocumentId = (data) => {
-    if(!data.userId) {
+    if (!data.userId || data.userId == '0') {
         throw Error("unauthorized")
     }
     return `${data.userId}-${data.titleId}-${data.voiceId}-${data.season}-${data.episode}`

@@ -208,7 +208,6 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
         view?.evaluateJavascript(
             "\$(document).ajaxComplete(function(event,request, settings){" +
                     "Android.updateWatchLater();" +
-                    "Android.updateTime(CDNPlayer.api('time'));" +
                     "});", null
         )
 
@@ -287,7 +286,18 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
                 "}"
         view?.evaluateJavascript(script6, null)
 
-        val script7 = "Android.initTime();"
+        val script7 = "Android.initTime();\n" +
+                "const UPDATE_TIMEOUT = 30000;\n" +
+                "const updateTime = (timer) => {\n" +
+                "    if (CDNPlayer.api('playing')) {\n" +
+                "        Android.updateTime(CDNPlayer.api('time'));\n" +
+                "    }\n" +
+                "\n" +
+                "    if (timer) {\n" +
+                "        setTimeout(() => updateTime(true), UPDATE_TIMEOUT);\n" +
+                "    }\n" +
+                "};\n" +
+                "setTimeout(() => updateTime(true), UPDATE_TIMEOUT);"
         view?.evaluateJavascript(script7, null)
 
         if (film.autoswitch != null && film.autoswitch!!.isNotEmpty()) {

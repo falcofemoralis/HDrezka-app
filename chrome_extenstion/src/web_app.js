@@ -32,10 +32,35 @@ window.onload = () => {
     window.postMessage({ action: "get", data: { ...getData() } })
 }
 
+const UPDATE_TIMEOUT = 30000;
+const updateTime = (timer) => {
+    if (CDNPlayer.api('playing')) {
+        window.postMessage({ action: "update", data: { ...getData(), time: CDNPlayer.api('time') } })
+    }
+
+    if (timer) {
+        setTimeout(() => updateTime(true), UPDATE_TIMEOUT)
+    }
+}
+
 window.addEventListener('message', (e) => {
     if (e.data.action == 'seek') {
         CDNPlayer.api('seek', e.data.data.time)
     } else if (e.data.action == 'fetched') {
-        $(document).ajaxComplete(() => window.postMessage({ action: "update", data: { ...getData(), time: CDNPlayer.api('time') } }));
+        //$(document).ajaxComplete(() => updateTime(false)); // on update watch later
+        setTimeout(() => updateTime(true), UPDATE_TIMEOUT)
     }
 });
+
+// Android.initTime();
+// const UPDATE_TIMEOUT = 30000;
+// const updateTime = (timer) => {
+//     if (CDNPlayer.api('playing')) {
+//         Android.updateTime(CDNPlayer.api('time'));
+//     }
+
+//     if (timer) {
+//         setTimeout(() => updateTime(true), UPDATE_TIMEOUT);
+//     }
+// };
+// setTimeout(() => updateTime(true), UPDATE_TIMEOUT);
