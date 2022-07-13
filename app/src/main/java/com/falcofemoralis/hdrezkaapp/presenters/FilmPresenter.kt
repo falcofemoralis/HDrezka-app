@@ -84,9 +84,9 @@ class FilmPresenter(private val filmView: FilmView, val film: Film) {
         return "${UserData.userId}-${film.filmId}-${film.lastVoiceId}-${film.lastSeason}-${film.lastEpisode}"
     }
 
-    fun initTime() {
+    fun initTime(documentId: String) {
         try {
-            db.collection(DB_COLLECTION).document(getDocumentId()).get().addOnSuccessListener { documentReference ->
+            db.collection(DB_COLLECTION).document(documentId).get().addOnSuccessListener { documentReference ->
                 Log.d("FIREBASE_TEST", "DocumentSnapshot with: ${documentReference.data}")
                 if (documentReference.data != null && documentReference.data?.get("deviceId") != SettingsData.deviceId) {
                     GlobalScope.launch {
@@ -104,15 +104,16 @@ class FilmPresenter(private val filmView: FilmView, val film: Film) {
         }
     }
 
-    fun updateTime(time: Double) {
+    fun updateTime(documentId: String, time: Double) {
         if (time > 0) {
             val data = hashMapOf(
                 "time" to time,
                 "deviceId" to SettingsData.deviceId,
             )
 
+            Log.d("TIME_MANAGER_TEST", documentId)
             try {
-                db.collection(DB_COLLECTION).document(getDocumentId()).set(data)
+                db.collection(DB_COLLECTION).document(documentId).set(data)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

@@ -352,13 +352,13 @@ class FilmFragment : Fragment(), FilmView {
         }
 
         @JavascriptInterface
-        fun initTime() {
-            filmPresenter.initTime()
+        fun initTime(documentId: String) {
+            filmPresenter.initTime(documentId)
         }
 
         @JavascriptInterface
-        fun updateTime(time: Double) {
-            filmPresenter.updateTime(time)
+        fun updateTime(documentId: String, time: Double) {
+            filmPresenter.updateTime(documentId, time)
         }
     }
 

@@ -286,11 +286,46 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
                 "}"
         view?.evaluateJavascript(script6, null)
 
-        val script7 = "Android.initTime();\n" +
+        val script7m = "const getDocumentId = () => {\n" +
+                "    let voiceId = null;\n" +
+                "    \$('.b-translator__item').each((i, el) => {\n" +
+                "        if (el.classList.contains('active')) {\n" +
+                "            voiceId = el.getAttribute('data-translator_id');\n" +
+                "        }\n" +
+                "    });\n" +
+                "\n" +
+                "    let season = null;\n" +
+                "    \$('.b-simple_season__item').each((i, el) => {\n" +
+                "        if (el.classList.contains('active')) {\n" +
+                "            season = el.getAttribute('data-tab_id');\n" +
+                "        }\n" +
+                "    });\n" +
+                "\n" +
+                "\n" +
+                "    let episode = null;\n" +
+                "    \$('.b-simple_episode__item').each((i, el) => {\n" +
+                "        if (el.classList.contains('active')) {\n" +
+                "            episode = el.getAttribute('data-episode_id');\n" +
+                "        }\n" +
+                "    });\n" +
+                "\n" +
+                "    let titleId = \$('.b-userset__fav_holder_data')[0].getAttribute('data-post_id');\n" +
+                "\n" +
+                "    let userId = \$('#member_user_id')[0].getAttribute('value');\n" +
+                "\n" +
+                "    if (!userId || userId == '0') {\n" +
+                "        throw Error(\"unauthorized\");\n" +
+                "    }\n" +
+                "    return `\${userId}-\${titleId}-\${voiceId}-\${season}-\${episode}`;\n" +
+                "}"
+
+        view?.evaluateJavascript(script7m, null)
+
+        val script7 = "Android.initTime(getDocumentId());\n" +
                 "const UPDATE_TIMEOUT = 30000;\n" +
                 "const updateTime = (timer) => {\n" +
                 "    if (CDNPlayer.api('playing')) {\n" +
-                "        Android.updateTime(CDNPlayer.api('time'));\n" +
+                "        Android.updateTime(getDocumentId(), CDNPlayer.api('time'));\n" +
                 "    }\n" +
                 "\n" +
                 "    if (timer) {\n" +
