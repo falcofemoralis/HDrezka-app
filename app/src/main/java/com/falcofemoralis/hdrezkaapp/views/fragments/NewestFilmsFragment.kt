@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner
 import com.falcofemoralis.hdrezkaapp.R
 import com.falcofemoralis.hdrezkaapp.constants.AppliedFilter
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
@@ -22,7 +24,7 @@ import com.falcofemoralis.hdrezkaapp.views.elements.RadioGridGroup
 import com.falcofemoralis.hdrezkaapp.views.viewsInterface.FilmListCallView
 import com.falcofemoralis.hdrezkaapp.views.viewsInterface.NewestFilmsView
 
-class NewestFilmsFragment : Fragment(), NewestFilmsView, FilmListCallView {
+class NewestFilmsFragment : Fragment(), NewestFilmsView, FilmListCallView, AdapterView.OnItemSelectedListener {
     private lateinit var currentView: View
     private lateinit var newestFilmsPresenter: NewestFilmsPresenter
     private lateinit var filmsListFragment: FilmsListFragment
@@ -48,7 +50,7 @@ class NewestFilmsFragment : Fragment(), NewestFilmsView, FilmListCallView {
     }
 
     override fun onFilmsListCreated() {
-        newestFilmsPresenter = NewestFilmsPresenter(this, filmsListFragment)
+        newestFilmsPresenter = NewestFilmsPresenter(this, filmsListFragment, requireContext())
         newestFilmsPresenter.initFilms()
 
         initFiltersBtn()
@@ -115,6 +117,22 @@ class NewestFilmsFragment : Fragment(), NewestFilmsView, FilmListCallView {
             }
         }
 
+        val genresSpinner = dialogView?.findViewById<SmartMaterialSpinner<String>>(R.id.film_genres_sp)
+        genresSpinner?.onItemSelectedListener = this
+        genresSpinner?.item = context?.resources?.getStringArray(R.array.genres)?.toList()
+
+        val genresInvSpinner = dialogView?.findViewById<SmartMaterialSpinner<String>>(R.id.film_genres_sp_exclude)
+        genresInvSpinner?.onItemSelectedListener = this
+        genresInvSpinner?.item = context?.resources?.getStringArray(R.array.genres)?.toList()
+
+        val countriesSpinner = dialogView?.findViewById<SmartMaterialSpinner<String>>(R.id.film_countries_sp)
+        countriesSpinner?.onItemSelectedListener = this
+        countriesSpinner?.item = context?.resources?.getStringArray(R.array.countries)?.toList()
+
+        val countriesInvSpinner = dialogView?.findViewById<SmartMaterialSpinner<String>>(R.id.film_countries_sp_exclude)
+        countriesInvSpinner?.onItemSelectedListener = this
+        countriesInvSpinner?.item = context?.resources?.getStringArray(R.array.countries)?.toList()
+
         builder.setView(dialogView)
         builder.setPositiveButton(R.string.ok_text) { d, i ->
             newestFilmsPresenter.applyFilters()
@@ -131,6 +149,26 @@ class NewestFilmsFragment : Fragment(), NewestFilmsView, FilmListCallView {
         }
 
         Highlighter.highlightButton(filtersBtn, requireContext())
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        when (parent.id) {
+            R.id.film_genres_sp -> {
+                newestFilmsPresenter.setFilter(AppliedFilter.GENRES, position)
+            }
+            R.id.film_genres_sp_exclude -> {
+                newestFilmsPresenter.setFilter(AppliedFilter.GENRES_INVERTED, position)
+            }
+            R.id.film_countries_sp -> {
+                newestFilmsPresenter.setFilter(AppliedFilter.COUNTRIES, position)
+            }
+            R.id.film_countries_sp_exclude -> {
+                newestFilmsPresenter.setFilter(AppliedFilter.COUNTRIES_INVERTED, position)
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
     override fun showConnectionError(type: IConnection.ErrorType, errorText: String) {

@@ -59,6 +59,7 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
         if (film.autoswitch != null && film.autoswitch!!.isNotEmpty()) {
             view?.evaluateJavascript(film.autoswitch!!, null)
         }
+
         callback()
         super.onPageFinished(view, url)
     }
