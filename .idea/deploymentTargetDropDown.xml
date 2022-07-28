@@ -7,7 +7,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="D:\Programs\Android Studio\AVD\.android\avd\Pixel_3_API_30.avd" />
+            <value value="D:\Programs\Android Studio\AVD\.android\avd\Android_TV_1080p_API_28.avd" />
           </Key>
         </deviceKey>
       </Target>
