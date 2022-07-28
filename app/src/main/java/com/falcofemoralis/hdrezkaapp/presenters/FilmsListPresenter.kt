@@ -4,6 +4,7 @@ import com.falcofemoralis.hdrezkaapp.constants.AdapterAction
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
 import com.falcofemoralis.hdrezkaapp.interfaces.IProgressState
 import com.falcofemoralis.hdrezkaapp.objects.Film
+import com.falcofemoralis.hdrezkaapp.objects.SettingsData
 import com.falcofemoralis.hdrezkaapp.utils.ExceptionHelper
 import com.falcofemoralis.hdrezkaapp.views.viewsInterface.FilmsListView
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,11 @@ class FilmsListPresenter(
         filmsListView.setProgressBarState(IProgressState.StateType.LOADING)
         GlobalScope.launch {
             try {
-                if (filmList.size == 0) {
+//                if (filmList.size == 0) {
+//                    filmList.addAll(iFilmsList.getMoreFilms())
+//                }
+
+                while (filmList.size < 3 * SettingsData.filmsInRow!!) {
                     filmList.addAll(iFilmsList.getMoreFilms())
                 }
 

@@ -224,6 +224,8 @@
     <string name="useragent_hint">Возможность изменить поле useragent в запросе</string>
     <string name="useragent_title">Поле Useragent</string>
     <string name="fresh">Новинки</string>
+    <string name="type_genres">Выбрать жанры</string>
+    <string name="type_years">Выбрать страны</string>
 </resources>
 
 

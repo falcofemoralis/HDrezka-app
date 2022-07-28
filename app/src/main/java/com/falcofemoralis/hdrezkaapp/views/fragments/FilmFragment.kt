@@ -331,7 +331,7 @@ class FilmFragment : Fragment(), FilmView {
         playerView?.settings?.userAgentString = SettingsData.mobileUserAgent
         playerView?.settings?.javaScriptEnabled = true
         playerView?.settings?.domStorageEnabled = true
-        playerView?.addJavascriptInterface(WebAppInterface(requireActivity()), "Android")
+        playerView?.addJavascriptInterface(WebAppInterface(requireActivity(), filmPresenter), "Android")
         playerView?.addJavascriptInterface(PlayerJsInterface(requireContext()), "JSOUT")
         playerView?.webViewClient = PlayerWebViewClient(requireContext(), this, filmPresenter.film) {
             container.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
@@ -345,11 +345,25 @@ class FilmFragment : Fragment(), FilmView {
         playerView?.loadUrl(link, map)
     }
 
-    class WebAppInterface(private val act: FragmentActivity) {
+    class WebAppInterface(private val act: FragmentActivity, private val filmPresenter: FilmPresenter) {
         @JavascriptInterface
         fun updateWatchLater() {
             (act as MainActivity).redrawPage(UpdateItem.WATCH_LATER_CHANGED)
         }
+
+        @JavascriptInterface
+        fun initTime(documentId: String) {
+            filmPresenter.initTime(documentId)
+        }
+
+        @JavascriptInterface
+        fun updateTime(documentId: String, time: Double) {
+            filmPresenter.updateTime(documentId, time)
+        }
+    }
+
+    override fun seekTo(time: Double) {
+        playerView?.evaluateJavascript("CDNPlayer.api('seek', $time)", null);
     }
 
     override fun setFilmBaseData(film: Film) {

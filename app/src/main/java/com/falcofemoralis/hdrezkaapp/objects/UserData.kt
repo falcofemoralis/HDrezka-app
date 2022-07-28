@@ -19,6 +19,7 @@ object UserData {
 
     var isLoggedIn: Boolean? = null
     var avatarLink: String? = null
+    var userId: String? = null;
 
     fun init(context: Context) {
         val data: String? = FileManager.readFile(USER_FILE, context)
@@ -32,8 +33,8 @@ object UserData {
 
         if (isLoggedIn == true) {
             try {
-                val dle_user_id = CookieStorage.getCookie(SettingsData.provider, "dle_user_id")
-                if (dle_user_id.isNullOrEmpty()) {
+                userId = CookieStorage.getCookie(SettingsData.provider, "dle_user_id")
+                if (userId.isNullOrEmpty()) {
                     loadCookies(context)
                 }
             } catch (e: Exception) {
@@ -78,6 +79,8 @@ object UserData {
         val hash = FileManager.readFile(USER_HASH, context)
         val session = FileManager.readFile(SESSION_ID, context)
 
+        userId = id
+
         setCookies(id, hash, session, context, false)
     }
 
@@ -110,5 +113,9 @@ object UserData {
         } else {
             list as ArrayList<SeriesUpdateItem>
         }
+    }
+
+    fun getUserId () {
+
     }
 }

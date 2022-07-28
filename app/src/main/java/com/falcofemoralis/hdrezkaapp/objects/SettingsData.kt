@@ -33,6 +33,7 @@ object SettingsData {
     var mobileUserAgent: String? = null
     var isControlsOverlayAutoHide: Boolean? = null
     var isInitHint: Boolean? = null
+    var deviceId: String? = null
 
     fun initDeviceType(context: Context) {
         var str: String? = null
@@ -88,6 +89,16 @@ object SettingsData {
             defq = null
         }
         defaultQuality = defq
+
+        if(deviceId == null){
+            var di = prefs?.getString("deviceId", null)
+            if(di == null){
+                di = System.currentTimeMillis().toString()
+                prefs?.edit()?.putString("deviceId", di)?.apply()
+            }
+
+            deviceId = di
+        }
     }
 
     fun setProvider(newProvider: String, context: Context, updateSettings: Boolean) {

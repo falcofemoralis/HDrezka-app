@@ -27,4 +27,12 @@ object FileManager {
         bw.write(content)
         bw.close()
     }
+
+    fun readFromAsset(src: String, context: Context): String {
+        val bufferReader = context.assets.open(src).bufferedReader()
+        val data = bufferReader.use {
+            it.readText()
+        }
+        return data
+    }
 }
