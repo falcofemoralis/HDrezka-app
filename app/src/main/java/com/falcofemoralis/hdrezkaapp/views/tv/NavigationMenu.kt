@@ -57,6 +57,11 @@ class NavigationMenu : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         currentView = inflater.inflate(R.layout.fragment_nav_menu, container, false) as View
 
+        isFree = true
+        closed = true
+        isLocked = false
+        isViewOnHover = false
+
         val notifyIB = currentView.findViewById<ImageBadgeView>(R.id.notify_IB)
         notifyBtn = notifyIB
         buttons.add(DrawerButton(notifyIB, currentView.findViewById(R.id.notify_TV), NavigationMenuTabs.nav_menu_series_updates, R.drawable.ic_baseline_notifications_24_sel, R.drawable.ic_baseline_notifications_24, -1))
@@ -338,7 +343,10 @@ class NavigationMenu : Fragment() {
     }
 
     private fun openNav() {
-        if(closed) {
+        Log.d("TEST_DRAWER", "openNav")
+        Log.d("TEST_DRAWER", closed.toString())
+        if (closed) {
+            Log.d("TEST_DRAWER", "OPEN")
             closed = false
             navigationStateListener.onStateChanged(closed)
 
@@ -362,7 +370,10 @@ class NavigationMenu : Fragment() {
     }
 
     private fun closeNav() {
-        if(!closed) {
+        Log.d("TEST_DRAWER", "closeNav")
+        Log.d("TEST_DRAWER", closed.toString())
+        if (!closed) {
+            Log.d("TEST_DRAWER", "CLOSE")
             closed = true
             navigationStateListener.onStateChanged(closed)
 
