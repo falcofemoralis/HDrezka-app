@@ -1148,6 +1148,18 @@ class FilmFragment : Fragment(), FilmView {
 
                     fileName.append(" ${parseUri.lastPathSegment}")
 
+                    var fileNameStr = fileName.toString()
+                    fileNameStr = fileNameStr
+                        .replace("\\", "")
+                        .replace("/", "")
+                        .replace(":", "")
+                        .replace("*", "")
+                        .replace("?", "")
+                        .replace("\"", "")
+                        .replace("<", "")
+                        .replace(">", "")
+                        .replace("|", "")
+
                     if (SettingsData.isExternalDownload == true) {
                         val sharingIntent = Intent(Intent.ACTION_SEND)
                         sharingIntent.type = "text/plain"
@@ -1156,10 +1168,10 @@ class FilmFragment : Fragment(), FilmView {
                         startActivity(sharingIntent)
                     } else {
                         val request = DownloadManager.Request(parseUri)
-                        request.setTitle(fileName)
+                        request.setTitle(fileNameStr)
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
                         request.allowScanningByMediaScanner()
-                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName.toString())
+                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileNameStr)
                         manager.enqueue(request)
                         Toast.makeText(requireContext(), getString(R.string.download_started), Toast.LENGTH_SHORT).show()
                     }
