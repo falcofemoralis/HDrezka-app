@@ -79,10 +79,6 @@
                     android:pathPrefix="/"
                     android:scheme="https" />
 
-                <data
-                    android:host="hdrzk.org"
-                    android:pathPrefix="/"
-                    android:scheme="https" />
             </intent-filter>
         </activity>
 
