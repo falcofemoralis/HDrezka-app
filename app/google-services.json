@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "891207654046",
+    "firebase_url": "https://movies-tracker-app-ac22b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "movies-tracker-app-ac22b",
+    "storage_bucket": "movies-tracker-app-ac22b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891207654046:android:1f4e115be516758667b98f",
+        "android_client_info": {
+          "package_name": "com.falcofemoralis.hdrezkaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891207654046-ihjdfab77i5hhlctvvlsr892mo0ss7r8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkMtpXjf7ugu9uYAzEypr9WWf-2LLZX-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891207654046-ihjdfab77i5hhlctvvlsr892mo0ss7r8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

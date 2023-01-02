@@ -19,7 +19,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:id="@+id/fragment_watch_later_list_rv"
-                android:name="com.falcofemoralis.onlinefilmstracker.views.fragments.WatchLaterFragment"
+                android:name="com.falcofemoralis.moviestrackerapp.views.fragments.WatchLaterFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="LinearLayoutManager"

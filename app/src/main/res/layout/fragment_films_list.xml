@@ -16,7 +16,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_films_list_rv_films"
-            android:name="com.falcofemoralis.onlinefilmstracker.fragments.FilmsListFragment"
+            android:name="com.falcofemoralis.moviestrackerapp.fragments.FilmsListFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

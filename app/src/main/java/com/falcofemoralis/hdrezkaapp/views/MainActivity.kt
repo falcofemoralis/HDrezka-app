@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, IConnec
 
             initApp()
 
-            checkAppVersion()
+            // checkAppVersion()
         } else {
             showConnectionError(IConnection.ErrorType.NO_INTERNET, "")
         }
