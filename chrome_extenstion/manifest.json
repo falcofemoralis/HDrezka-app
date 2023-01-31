@@ -25,7 +25,8 @@
         {
             "matches": [
                 "http://hdrezka.tv/*",
-                "https://rezka.ag/*"
+                "https://rezka.ag/*",
+				"https://hdrezka.tv/*"
             ],
             "resources": [
                 "/src/web_app.js"
