@@ -1,7 +1,6 @@
 package com.falcofemoralis.hdrezkaapp.views.elements;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
 import android.widget.RadioButton;
+
+import androidx.annotation.NonNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

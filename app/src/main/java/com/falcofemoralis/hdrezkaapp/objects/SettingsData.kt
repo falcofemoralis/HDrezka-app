@@ -12,8 +12,7 @@ import com.falcofemoralis.hdrezkaapp.utils.FileManager
 object SettingsData {
     const val UIMODE_FILE = "uimode"
     const val APP_HEADER = "X-App-Hdrezka-App"
-    const val UPDATE_URL = "https://dl.dropboxusercontent.com/s/9dxteko8dqk3ysa/version_next.json?dl=1"
-    const val SHARE_HOST = "rzk.link"
+    const val UPDATE_URL = ""
 
     var deviceType: DeviceType? = null
     var provider: String? = null

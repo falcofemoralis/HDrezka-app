@@ -26,7 +26,7 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
             view.loadUrl(request.url.toString())
         }
         val map = HashMap<String, String>()
-        map[SettingsData.APP_HEADER,] = IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE
+        map[SettingsData.APP_HEADER] = IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE
         view.loadUrl(request.url.toString(), map)
         return true
     }
