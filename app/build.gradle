@@ -13,8 +13,8 @@ android {
         applicationId "com.falcofemoralis.hdrezkaapp"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 39
-        versionName "2.1.5"
+        versionCode 40
+        versionName "2.1.5-2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,6 +36,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.falcofemoralis.hdrezkaapp'
 }
 
 dependencies {

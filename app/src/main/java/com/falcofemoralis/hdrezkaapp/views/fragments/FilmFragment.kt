@@ -1024,7 +1024,11 @@ class FilmFragment : Fragment(), FilmView {
                             }
                         }
 
-                        if (filmPresenter.film.lastSeason == season && filmPresenter.film.lastEpisode == episode && filmPresenter.film.lastVoiceId == translations[selectedTranslation].id && UserData.isLoggedIn == true) {
+                        if (
+                            filmPresenter.film.lastSeason == season &&
+                            filmPresenter.film.lastEpisode == episode &&
+                            ((translations.size == 1 && filmPresenter.film.lastVoiceId == null) || filmPresenter.film.lastVoiceId == translations[selectedTranslation].id) &&
+                            UserData.isLoggedIn == true) {
                             activeNameTextView = nameTextView
                         }
 

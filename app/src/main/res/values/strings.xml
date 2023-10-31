@@ -217,7 +217,7 @@
     <string name="isControlsOverlayAutoHide_title">Автозакрытие меню плеера</string>
     <string name="isControlsOverlayAutoHide_hint">Меню управления плеером будет автоматически свернуто</string>
     <string name="genres">Жанры</string>
-    <string name="default_provider">https://hdrezka.tv</string>
+    <string name="default_provider">https://rezka.ag</string>
     <string name="init_hint_title">О приложении</string>
     <string name="init_hint_msg">Данное приложение является неофициальным и администрация сайта резки не имеет никакого отношение к нему! Подробнее можно узнать на форуме 4pda.\n\nСлава Україні!\n\nПутин и его свита убивают мирное население (https://t.me/verkhovnaradaofukraine) на войне в Украине\n#stopputin</string>
     <string name="default_useragent">AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36</string>
