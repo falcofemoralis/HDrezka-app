@@ -8,7 +8,8 @@
             "matches": [
                 "http://hdrezka.tv/*",
                 "https://rezka.ag/*",
-				"https://hdrezka.tv/*"
+				"https://hdrezka.tv/*",
+				"https://rezka-ua.tv/*"
             ],
             "js": [
                 "/src/libs/firebase/firebase-app.js",
@@ -26,7 +27,8 @@
             "matches": [
                 "http://hdrezka.tv/*",
                 "https://rezka.ag/*",
-				"https://hdrezka.tv/*"
+				"https://hdrezka.tv/*",
+				"https://rezka-ua.tv/*"
             ],
             "resources": [
                 "/src/web_app.js"
