@@ -29,7 +29,7 @@ class NewestFilmsPresenter(
         filmsListPresenter.getNextFilms()
     }
 
-    override fun getMoreFilms(): ArrayList<Film> {
+    override fun getMoreFilms(): ArrayList<Film>? {
         return try {
             var films: ArrayList<Film> = ArrayList()
 
@@ -43,7 +43,6 @@ class NewestFilmsPresenter(
             } else {
                 films = NewestFilmsModel.getNewestFilms(currentPage, appliedFilters[AppliedFilter.SORT]!!, appliedFilters[AppliedFilter.TYPE]!!)
             }
-
 
             if (!appliedFilters[AppliedFilter.GENRES].isNullOrEmpty()) {
                 films = films.filter { filterFilm(it.genres, AppliedFilter.GENRES) } as ArrayList<Film>
@@ -62,7 +61,7 @@ class NewestFilmsPresenter(
             films
         } catch (e: Exception) {
             ExceptionHelper.catchException(e, newestFilmsView)
-            ArrayList()
+            null
         }
     }
 

@@ -375,7 +375,7 @@ object FilmModel {
                         endIndex = stringedDoc.indexOf("{\"url\"", startIndex)
                         startObjIndex = endIndex
                     }
-                    var endObjIndex = stringedDoc.indexOf("});")
+                    var endObjIndex = stringedDoc.indexOf("});", startIndex)
 
                     val subString = stringedDoc.substring(startIndex, endIndex)
                     val trans = Voice(subString.split(",")[1], parseSeasons(document))

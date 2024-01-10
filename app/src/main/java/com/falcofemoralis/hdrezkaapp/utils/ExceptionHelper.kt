@@ -2,6 +2,7 @@ package com.falcofemoralis.hdrezkaapp.utils
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.falcofemoralis.hdrezkaapp.R
@@ -9,7 +10,6 @@ import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection.ErrorType
 import com.falcofemoralis.hdrezkaapp.objects.SettingsData
 import com.falcofemoralis.hdrezkaapp.views.MainActivity
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +28,15 @@ import javax.net.ssl.SSLHandshakeException
 
 object ExceptionHelper {
     var activeDialog: AlertDialog? = null
+    var prevErrorType: ErrorType? = null
 
     fun showToastError(context: Context, type: ErrorType, error: String) {
+        if (prevErrorType !== null && prevErrorType === type) {
+            return
+        }
+
+        prevErrorType = type
+
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
                 val textId: Int = when (type) {
@@ -55,11 +62,11 @@ object ExceptionHelper {
                         context.getString(R.string.url_error_no_protocol)
                     } else {
                         context.getString(R.string.url_error_malformed)
-
                     }
-                    Toast.makeText(context, "${context.getString(textId)}: $urlErrorString ${context.getString(R.string.your_url)} ${SettingsData.provider}", Toast.LENGTH_LONG).show()
+
+                    Toast.makeText(context, "${context.getString(textId)}: $urlErrorString ${context.getString(R.string.your_url)} ${SettingsData.provider}", Toast.LENGTH_SHORT).show();
                 } else if (type != ErrorType.PROVIDER_TIMEOUT) {
-                    Toast.makeText(context, context.getString(textId) + ": " + error, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(textId) + ": " + error, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -98,8 +105,8 @@ object ExceptionHelper {
             e !is SocketTimeoutException &&
             e !is ConnectException &&
             e !is HttpStatusException &&
-                    e !is SocketException &&
-                    e !is SSLException &&
+            e !is SocketException &&
+            e !is SSLException &&
             e !is IOException
         ) {
             Firebase.crashlytics.recordException(e)
@@ -118,6 +125,7 @@ object ExceptionHelper {
                     else -> ErrorType.ERROR
                 }
             }
+
             is ParseError -> ErrorType.PARSING_ERROR
             is IllegalArgumentException -> ErrorType.MALFORMED_URL
             is IndexOutOfBoundsException -> ErrorType.BLOCKED_SITE

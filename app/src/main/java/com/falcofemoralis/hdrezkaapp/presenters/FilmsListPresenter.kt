@@ -19,7 +19,7 @@ class FilmsListPresenter(
     private val iFilmsList: IFilmsList,
 ) {
     interface IFilmsList {
-        fun getMoreFilms(): ArrayList<Film>
+        fun getMoreFilms(): ArrayList<Film>?
     }
 
     private var isLoading: Boolean = false // loading condition
@@ -46,7 +46,12 @@ class FilmsListPresenter(
 //                }
 
                 while (filmList.size < 3 * SettingsData.filmsInRow!!) {
-                    filmList.addAll(iFilmsList.getMoreFilms())
+                    val films = iFilmsList.getMoreFilms()
+                    if(films === null) {
+                        return@launch
+                    }
+
+                    filmList.addAll(films)
                 }
 
                 val tokenTmp = token
