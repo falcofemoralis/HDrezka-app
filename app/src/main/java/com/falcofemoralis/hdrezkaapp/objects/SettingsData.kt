@@ -11,7 +11,8 @@ import com.falcofemoralis.hdrezkaapp.utils.FileManager
 
 object SettingsData {
     const val UIMODE_FILE = "uimode"
-    const val APP_HEADER = "X-App-Hdrezka-App"
+    const val APP_HEADER = "X-Hdrezka-Android-App"
+    const val APP_VERSION = "X-Hdrezka-Android-App-Version"
     const val UPDATE_URL = ""
 
     var deviceType: DeviceType? = null

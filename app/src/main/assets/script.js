@@ -1,5 +1,3 @@
-$.ajaxSetup({ beforeSend: function (xhr) { xhr.setRequestHeader('X-App-Hdrezka-App', '1'); } });
-
 document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width,initial-scale=1.0');
 var idsToHide = ['top-head', 'top-nav', 'comments-form', 'hd-comments-list', 'hd-comments-navigation', 'footer'];
 for (var i = 0; i < idsToHide.length; ++i) {
@@ -8,6 +6,46 @@ for (var i = 0; i < idsToHide.length; ++i) {
         el.style.setProperty('display', 'none', 'important');
     }
 }
+
+var images = document.getElementsByTagName('img');
+for (var i = 0; i < images.length; i++) {
+    var img = images[i];
+    if ((img.src.startsWith('https://static.hdrezka.ac/i/') ||
+        img.src.startsWith('https://s.cummerata.link/')) &&
+        !img.closest('#translators-list')) {
+        img.style.display = 'none';
+        img.parentElement.parentElement.style.height = '0px';
+        img.parentElement.style.height = '0px';
+    }
+}
+
+var elements = document.querySelectorAll('iframe[src*="s.cummerata.link"]');
+for (var i = 0; i < elements.length; i++) {
+    elements[i].parentNode.style.display = 'none';
+}
+
+
+var banners = document.querySelectorAll('iframe[src="//s.cummerata.link/"]');
+for (var i = 0; i < banners.length; i++) {
+    banners[i].style.display = 'none';
+    banners.parentElement.parentElement.style.height = '0px';
+    banners.parentElement.style.height = '0px';
+}
+
+var elem = document.getElementById("simple-episodes-tabs");
+if (elem) {
+    var nextElem = elem.nextElementSibling;
+
+    while (nextElem) {
+        nextElem.style.display = 'none';
+        nextElem = nextElem.nextElementSibling;
+    }
+}
+
+var body = document.getElementsByTagName( "body")[0];
+body.style.setProperty("background", 'black')
+
+
 
 var classesToHide = ['post__title',
     'b-post__origtitle',
@@ -35,6 +73,8 @@ for (var i = 0; i < classesToHide.length; ++i) {
     for (var j = 0; j < els.length; ++j) {
         if (els[j]) {
             els[j].style.setProperty('display', 'none', 'important');
+            els[j].parentElement.parentElement.style.height = '0px';
+            els[j].parentElement.style.height = '0px';
         }
     }
 }
@@ -191,11 +231,11 @@ for (var i = 0; i < mainElements.length; ++i) {
     var el = mainElements[i];
     if (el.classList && el.classList.length > 0) {
         if (el.classList[0] == "b-post__lastepisodeout") {
-            mainElements[i - 6].style.setProperty('height', '0px', 'important');
+            mainElements[i - 6]?.style.setProperty('height', '0px', 'important');
         }
 
         if (el.classList[0] == "b-post__rating_table") {
-            mainElements[i + 2].style.setProperty('height', '0px', 'important');
+            mainElements[i + 2]?.style.setProperty('height', '0px', 'important');
         }
     }
 }

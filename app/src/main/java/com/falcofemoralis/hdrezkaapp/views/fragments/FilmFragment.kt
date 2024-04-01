@@ -42,6 +42,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+import com.falcofemoralis.hdrezkaapp.BuildConfig
 import com.falcofemoralis.hdrezkaapp.R
 import com.falcofemoralis.hdrezkaapp.clients.PlayerChromeClient
 import com.falcofemoralis.hdrezkaapp.clients.PlayerJsInterface
@@ -342,6 +343,7 @@ class FilmFragment : Fragment(), FilmView {
         playerView?.webChromeClient = activity?.let { PlayerChromeClient(it) }
         val map = HashMap<String, String>()
         map[SettingsData.APP_HEADER] = IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE
+        map[SettingsData.APP_VERSION] = BuildConfig.VERSION_NAME
         playerView?.loadUrl(link, map)
     }
 

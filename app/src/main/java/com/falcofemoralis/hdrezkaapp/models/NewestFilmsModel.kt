@@ -15,7 +15,14 @@ object NewestFilmsModel {
     val TYPES: ArrayList<String> = arrayListOf("0", "1", "2", "3", "82") // all, films, serials, multfilms, anime
 
     fun getNewestFilms(page: Int, sort: String, type: String): ArrayList<Film> {
-        var link = SettingsData.provider + "/page/$page/?filter=$sort"
+
+        var pageUrl = ""
+
+        if(page > 1) {
+            pageUrl = "page/$page/";
+        }
+
+        var link = SettingsData.provider + "/$pageUrl?filter=$sort"
 
         // fixed site bug
         if (type != "0") {
@@ -46,7 +53,7 @@ object NewestFilmsModel {
         }
 
         val doc: Document = BaseModel.getJsoup(link).get()
-        return FilmsListModel.getFilmsFromPage(doc)
+        return FilmsListModel.getFilmsFromPage(doc) 
     }
 
     fun getSeriesUpdates(): LinkedHashMap<String, ArrayList<SeriesUpdateItem>> {

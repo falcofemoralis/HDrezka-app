@@ -14,6 +14,7 @@ import android.webkit.WebViewClient
 import com.falcofemoralis.hdrezkaapp.interfaces.IConnection
 import com.falcofemoralis.hdrezkaapp.objects.Film
 import android.webkit.ValueCallback
+import com.falcofemoralis.hdrezkaapp.BuildConfig
 import com.falcofemoralis.hdrezkaapp.objects.SettingsData
 import com.falcofemoralis.hdrezkaapp.utils.FileManager
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders
@@ -27,6 +28,7 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
         }
         val map = HashMap<String, String>()
         map[SettingsData.APP_HEADER] = IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE
+        map[SettingsData.APP_VERSION] = BuildConfig.VERSION_NAME
         view.loadUrl(request.url.toString(), map)
         return true
     }
@@ -36,7 +38,7 @@ class PlayerWebViewClient(val context: Context, val mainView: IConnection, val f
         if (!checkUrl(url)) {
             view.loadUrl(url)
         }
-        view.loadUrl(url, mapOf(Pair(SettingsData.APP_HEADER, IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE)))
+        view.loadUrl(url, mapOf(Pair(SettingsData.APP_HEADER, IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE), Pair(SettingsData.APP_VERSION, BuildConfig.VERSION_NAME)))
         return true
     }
 

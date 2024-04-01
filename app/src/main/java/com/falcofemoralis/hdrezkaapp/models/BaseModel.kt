@@ -1,5 +1,6 @@
 package com.falcofemoralis.hdrezkaapp.models
 
+import com.falcofemoralis.hdrezkaapp.BuildConfig
 import com.falcofemoralis.hdrezkaapp.objects.SettingsData
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders
 import org.jsoup.Connection
@@ -14,6 +15,7 @@ object BaseModel {
             //.followRedirects(false)
             .timeout(30000)
             .header(SettingsData.APP_HEADER, IcyHeaders.REQUEST_HEADER_ENABLE_METADATA_VALUE)
+            .header(SettingsData.APP_VERSION, BuildConfig.VERSION_NAME)
 
         return connection
     }
