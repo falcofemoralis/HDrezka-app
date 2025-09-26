@@ -1,5 +1,3 @@
-⭐️ Check my NEW modern application to watch films [Lumen](https://github.com/falcofemoralis/lumen)
-
 ## HDrezka app
 
 Данное приложение является неофициальным и администрация сайта резки не имеет никакого отношение к нему!
